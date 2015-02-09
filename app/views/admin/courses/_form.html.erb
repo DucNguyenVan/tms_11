@@ -1,0 +1,33 @@
+<%= form_for([:admin, @course]) do |f| %>
+  <%= render 'shared/error_messages', obj: f.object %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name, class: 'form_control' %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description, class: 'form_control' %>
+
+  <%= f.label :begin_at %>
+  <%= f.date_select :begin_at, :start_year => Date.current.year,
+               :end_year => Date.current.year + 5, class: 'form-control' %>
+
+  <%= f.label :end_at %>
+  <%= f.date_select :end_at, :start_year => Date.current.year,
+                :end_year => Date.current.year + 5, class: 'form-control' %>
+
+  <% Subject.all.each do |subject| %>
+    <%= f.fields_for :course_subjects, subject do |course_subject_builder| %>
+      <%= course_subject_builder.label :_destroy do %>
+        <p>
+          <%= subject.name %>
+          <%= course_subject_builder.check_box :_destroy, {checked: false}, false, true %>
+        </p>
+      <% end %>
+
+      <%= course_subject_builder.hidden_field :subject_id, value: subject.id %>
+      <%= course_subject_builder.hidden_field :id, value: nil %>
+    <% end %>
+  <% end %>
+
+  <%= f.submit "Make a new course", class: "btn btn-primary" %>
+<% end %>

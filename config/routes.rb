@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, :courses
   end
+  resources :courses
 end

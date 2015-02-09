@@ -5,6 +5,5 @@ class CreateTasks < ActiveRecord::Migration
       t.references :subject, index:true
       t.timestamps null: false
     end
-  end
-    add_foreign_key :tasks, :subjects
+  end 
 end

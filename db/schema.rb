@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150206085430) do
+ActiveRecord::Schema.define(version: 20150209005725) do
+
+  create_table "course_subjects", force: true do |t|
+    t.integer  "course_id"
+    t.integer  "subject_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "course_subjects", ["course_id", "subject_id"], name: "index_course_subjects_on_course_id_and_subject_id", unique: true, using: :btree
+  add_index "course_subjects", ["course_id"], name: "index_course_subjects_on_course_id", using: :btree
+  add_index "course_subjects", ["subject_id"], name: "index_course_subjects_on_subject_id", using: :btree
 
   create_table "courses", force: true do |t|
     t.string   "name"
